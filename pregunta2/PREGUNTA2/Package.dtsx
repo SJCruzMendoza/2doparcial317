@@ -1,0 +1,174 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="12/5/2022 10:55:47 AM"
+  DTS:CreationName="SSIS.Package.3"
+  DTS:CreatorComputerName="WIN10PC"
+  DTS:CreatorName="WIN10PC\PCWORK"
+  DTS:DTSID="{88A43A56-86D0-4B40-B10D-1F355A183D81}"
+  DTS:ExecutableType="SSIS.Package.3"
+  DTS:LastModifiedProductVersion="11.0.2100.60"
+  DTS:LocaleID="3082"
+  DTS:ObjectName="Package"
+  DTS:PackageType="5"
+  DTS:VersionBuild="7"
+  DTS:VersionGUID="{7CF51928-03BC-4A15-BF2D-84B1AFC88422}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">6</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[WIN10PC.PREG2]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{3409CBC8-6C1A-46EB-9FDC-F1DB082A795F}"
+      DTS:ObjectName="WIN10PC.PREG2">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=WIN10PC;Initial Catalog=PREG2;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Tarea Ejecutar SQL"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Tarea Ejecutar SQL"
+      DTS:DTSID="{C06B30E7-C3EF-4642-BEB5-2E7A9D442320}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Tarea Ejecutar SQL"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{3409CBC8-6C1A-46EB-9FDC-F1DB082A795F}"
+          SQLTask:SqlStatementSource="create table categoria(&#xA;       idcategoria integer primary key identity,&#xA;       nombre varchar(50) not null unique,&#xA;       descripcion varchar(256) null,&#xA;       estado bit default(1)&#xA;&#x9;   );&#xA;GO&#xA;create table articulo(&#xA;       idarticulo integer primary key identity,&#xA;       idcategoria integer not null,&#xA;       codigo varchar(50) null,&#xA;       nombre varchar(100) not null unique,&#xA;       precio_venta decimal(11,2) not null,&#xA;       stock integer not null,&#xA;       descripcion varchar(256) null,&#xA;       estado bit default(1)      &#xA;);&#xA;&#xA;GO&#xA;create table persona(&#xA;       idpersona integer primary key identity,&#xA;       tipo_persona varchar(20) not null,&#xA;       nombre varchar(100) not null,&#xA;       tipo_documento varchar(20) null,&#xA;       num_documento varchar(20) null,&#xA;       direccion varchar(70) null,&#xA;       telefono varchar(20) null,&#xA;       email varchar(50) null&#xA;);&#xA;GO&#xA;create table rol(&#xA;       idrol integer primary key identity,&#xA;       nombre varchar(30) not null,&#xA;       descripcion varchar(100) null,&#xA;       estado bit default(1)&#xA;);&#xA;GO&#xA;create table usuario(&#xA;       idusuario integer primary key identity,&#xA;       idrol integer not null,&#xA;       nombre varchar(100) not null,&#xA;       tipo_documento varchar(20) null,&#xA;       num_documento varchar(20) null,&#xA;       direccion varchar(70) null,&#xA;       telefono varchar(20) null,&#xA;       email varchar(50) not null,&#xA;       pwd varbinary not null,&#xA;       estado bit default(1)       &#xA;);&#xA;GO&#xA;create table ingreso(&#xA;       idingreso integer primary key identity,&#xA;       idproveedor integer not null,&#xA;       idusuario integer not null,&#xA;       tipo_comprobante varchar(20) not null,&#xA;       serie_comprobante varchar(7) null,&#xA;       num_comprobante varchar (10) not null,&#xA;       fecha datetime not null,&#xA;       impuesto decimal (4,2) not null,&#xA;       total decimal (11,2) not null,&#xA;       estado varchar(20) not null     &#xA;);&#xA;GO&#xA;create table detalle_ingreso(&#xA;       iddetalle_ingreso integer primary key identity,&#xA;       idingreso integer not null,&#xA;       idarticulo integer not null,&#xA;       cantidad integer not null,&#xA;       precio decimal(11,2) not null      &#xA;);&#xA;GO&#xA;create table venta(&#xA;       idventa integer primary key identity,&#xA;       idcliente integer not null,&#xA;       idusuario integer not null,&#xA;       tipo_comprobante varchar(20) not null,&#xA;       serie_comprobante varchar(7) null,&#xA;       num_comprobante varchar (10) not null,&#xA;       fecha_hora datetime not null,&#xA;       impuesto decimal (4,2) not null,&#xA;       total decimal (11,2) not null,&#xA;       estado varchar(20) not null     &#xA;);&#xA;GO&#xA;create table detalle_venta(&#xA;       iddetalle_venta integer primary key identity,&#xA;       idventa integer not null,&#xA;       idarticulo integer not null,&#xA;       cantidad integer not null,&#xA;       precio decimal(11,2) not null,&#xA;       descuento decimal(11,2) not null      &#xA;);&#xA;GO&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Tarea Ejecutar SQL 1"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Tarea Ejecutar SQL"
+      DTS:DTSID="{BF95DC63-DA19-49C4-ADE5-B311600C98CB}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Tarea Ejecutar SQL 1"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{3409CBC8-6C1A-46EB-9FDC-F1DB082A795F}"
+          SQLTask:SqlStatementSource="insert into categoria (nombre,descripcion) values ('Golosinas','');&#xA;insert into categoria (nombre,descripcion) values ('Viveres','');&#xA;insert into categoria (nombre,descripcion) values ('Refrescos','');&#xA;insert into categoria (nombre,descripcion) values ('Electrodomesticos','');&#xA;insert into categoria (nombre,descripcion) values ('Limpieza','');&#xA;insert into categoria (nombre,descripcion) values ('Fragiles','');&#xA;insert into categoria (nombre,descripcion) values ('Perecederos','');&#xA;GO&#xA;--articulo&#xA;insert into articulo(idcategoria,codigo,nombre,precio_venta,stock,descripcion,estado)values (1,'CER-A','Pipoca',1.5,10,'ceral de 20 gr',1);&#xA;insert into articulo(idcategoria,codigo,nombre,precio_venta,stock,descripcion,estado)values (3,'HAR','Harina',35,20,'Harinaargentina 1@',1);&#xA;insert into articulo(idcategoria,codigo,nombre,precio_venta,stock,descripcion,estado)values (4,'RE2','CocaCola',5.7,50,'pack en 6 Unidades',1);&#xA;insert into articulo(idcategoria,codigo,nombre,precio_venta,stock,descripcion,estado)values (5,'ELEC-2','Plancha',43.5,20,'de 200w',1);&#xA;insert into articulo(idcategoria,codigo,nombre,precio_venta,stock,descripcion,estado)values (6,'LAV1','LavaVajilla',13.2,12,'saca grasa',1);&#xA;insert into articulo(idcategoria,codigo,nombre,precio_venta,stock,descripcion,estado)values (7,'FRA-1','Huevo',1,24,'huevos de 1',1);&#xA;insert into articulo(idcategoria,codigo,nombre,precio_venta,stock,descripcion,estado)values (8,'LECH1','Lechuga',3.5,18,'Lechuga mallasilla',1);&#xA;GO&#xA;--persona&#xA;insert into persona(tipo_persona,nombre,tipo_documento,num_documento,direccion,telefono,email) values ('comprador','julian alvarez','CI','123456','vf zona n 456','742115478','ja@gmail.com');&#xA;insert into persona(tipo_persona,nombre,tipo_documento,num_documento,direccion,telefono,email) values ('comprador','leo garcia','CI','4123456','villa adela zona n 4','763815478','leoGar@gmail.com');&#xA;insert into persona(tipo_persona,nombre,tipo_documento,num_documento,direccion,telefono,email) values ('comprador','juana Sanchez','CI','2123456','el carmen zona n 1256','796315478','JuaSa@gmail.com');&#xA;insert into persona(tipo_persona,nombre,tipo_documento,num_documento,direccion,telefono,email) values ('comprador','guimer Fernaandez','CI','5113456','cornejo zona n 61','787545478','Gfernacho@gmail.com');&#xA;insert into persona(tipo_persona,nombre,tipo_documento,num_documento,direccion,telefono,email) values ('comprador','soledad lopez','CI','723456','villa fatima zona n 14456','766355478','SoLopja@gmail.com');&#xA;insert into persona(tipo_persona,nombre,tipo_documento,num_documento,direccion,telefono,email) values ('comprador','yuiliza serpentgui','CI','18723456','vf zona n 456','7400218','Serpja@gmail.com');&#xA;GO&#xA;-- rol&#xA;insert into rol(nombre,descripcion,estado) values ('operador','operadores',1);&#xA;insert into rol(nombre,descripcion,estado) values ('Administrador','Admin',1);&#xA;insert into rol(nombre,descripcion,estado) values ('proveedorsr','provr',1);&#xA;GO&#xA;--usuario&#xA;insert into usuario(idrol,nombre,tipo_documento,num_documento,direccion,telefono,email,pwd,estado) values (1,'Salas Aiel','CI','234578','los linces cale 3 n 236','2314589','slaaiel@hotmail.com',12345,1);&#xA;insert into usuario(idrol,nombre,tipo_documento,num_documento,direccion,telefono,email,pwd,estado) values (2,'Fernandez Carlos','CI','3444578','los pinos 33 n 236','458559','ff_aaiel@hotmail.com',12345,1);&#xA;insert into usuario(idrol,nombre,tipo_documento,num_documento,direccion,telefono,email,pwd,estado) values (3,'Clarosz Juan Carlos','CI','114578','El alto villadolores n 1236','555559','clarosel@hotmail.com',12345,1);&#xA;&#xA;GO&#xA;--ingreso&#xA;insert into ingreso(idproveedor,idusuario,tipo_comprobante,serie_comprobante,num_comprobante,fecha,impuesto,total,estado)values (1,1,'factura','001','a123','05/10/2022',13.5,200,1);&#xA;insert into ingreso(idproveedor,idusuario,tipo_comprobante,serie_comprobante,num_comprobante,fecha,impuesto,total,estado)values (2,1,'factura','002','a2123','02/09/2022',13.5,1200,1);&#xA;insert into ingreso(idproveedor,idusuario,tipo_comprobante,serie_comprobante,num_comprobante,fecha,impuesto,total,estado)values (3,1,'factura','041','a3123','05/10/2022',13.5,12.3,1);&#xA;insert into ingreso(idproveedor,idusuario,tipo_comprobante,serie_comprobante,num_comprobante,fecha,impuesto,total,estado)values (4,1,'factura','061','a4123','07/10/2022',13.5,42,1);&#xA;insert into ingreso(idproveedor,idusuario,tipo_comprobante,serie_comprobante,num_comprobante,fecha,impuesto,total,estado)values (3,1,'factura','071','a5123','08/10/2022',13.5,81,1);&#xA;insert into ingreso(idproveedor,idusuario,tipo_comprobante,serie_comprobante,num_comprobante,fecha,impuesto,total,estado)values (5,1,'factura','0501','a5123','15/10/2022',13.5,32.5,1);&#xA;GO&#xA;--venta&#xA;insert into venta(idcliente,idusuario,tipo_comprobante,serie_comprobante,num_comprobante,fecha_hora,impuesto,total,estado) values (1,1,'factura','001','05/10/2022','12:14',13.5,45,'ja@gmail.com');&#xA;insert into venta(idcliente,idusuario,tipo_comprobante,serie_comprobante,num_comprobante,fecha_hora,impuesto,total,estado) values (2,3,'factura','0021','06/10/2022','13:14',13.5,245,'sadaja@gmail.com');&#xA;insert into venta(idcliente,idusuario,tipo_comprobante,serie_comprobante,num_comprobante,fecha_hora,impuesto,total,estado) values (3,2,'factura','0021','07/10/2022','14:14',13.5,485,'sdaja@gmail.com');&#xA;insert into venta(idcliente,idusuario,tipo_comprobante,serie_comprobante,num_comprobante,fecha_hora,impuesto,total,estado) values (1,1,'factura','00121','08/10/2022','15:14',13.5,145,'adja@gmail.com');&#xA;GO&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Tarea Ejecutar SQL 2"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Tarea Ejecutar SQL"
+      DTS:DTSID="{C70D9281-1EF2-474D-AFA0-DC0DDC9141BB}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Tarea Ejecutar SQL 2"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{3409CBC8-6C1A-46EB-9FDC-F1DB082A795F}"
+          SQLTask:SqlStatementSource="&#xA;IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[articulo]') AND type in (N'U'))&#xA;BEGIN&#xA;DROP TABLE [dbo].[articulo] &#xA;END&#xA;GO&#xA;&#xA;IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[categoria]') AND type in (N'U'))&#xA;BEGIN&#xA;DROP TABLE [dbo].[categoria]&#xA;END&#xA;GO&#xA;&#xA;IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[detalle_ingreso]') AND type in (N'U'))&#xA;BEGIN&#xA;DROP TABLE [dbo].[detalle_ingreso]&#xA;END&#xA;GO&#xA;&#xA;IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[detalle_venta]') AND type in (N'U'))&#xA;BEGIN&#xA;DROP TABLE [dbo].[detalle_venta]&#xA;END&#xA;GO&#xA;&#xA;IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ingreso]') AND type in (N'U'))&#xA;BEGIN&#xA;DROP TABLE [dbo].[ingreso]&#xA;END&#xA;GO&#xA;IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[persona]') AND type in (N'U'))&#xA;BEGIN&#xA;DROP TABLE [dbo].[persona]&#xA;END&#xA;GO&#xA;IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[rol]') AND type in (N'U'))&#xA;BEGIN&#xA;DROP TABLE [dbo].[rol]&#xA;END&#xA;GO&#xA;IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[usuario]') AND type in (N'U'))&#xA;BEGIN&#xA;DROP TABLE [dbo].[usuario]&#xA;END&#xA;GO&#xA;&#xA;IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[venta]') AND type in (N'U'))&#xA;BEGIN&#xA;DROP TABLE [dbo].[venta]&#xA;END&#xA;GO&#xA;&#xA;IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[dbo].[DF__articulo__estado__15502E78]') AND type = 'D')&#xA;BEGIN&#xA;DROP TABLE [dbo].[articulo]&#xA;END&#xA;GO&#xA;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción]"
+      DTS:CreationName=""
+      DTS:DTSID="{EED75A57-8A71-4DDE-81EA-03B5547AEF85}"
+      DTS:From="Package\Tarea Ejecutar SQL"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción"
+      DTS:To="Package\Tarea Ejecutar SQL 1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Restricción 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{053D4F9F-D28F-4B4A-A327-C067320D9A41}"
+      DTS:From="Package\Tarea Ejecutar SQL 2"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Restricción 1"
+      DTS:To="Package\Tarea Ejecutar SQL" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--Esta sección CDATA contiene la información de diseño del paquete. Esta sección incluye información como, por ejemplo, las coordenadas (x,y), el ancho y el alto.-->
+<!--Si edita manualmente esta sección y comete un error, puede eliminarlo. -->
+<!--El paquete podrá cargarse normalmente, pero se perderá la información de diseño anterior y el diseñador reorganizará los elementos automáticamente en la superficie de diseño.-->
+<Objects
+  Version="sql11">
+  <!--Cada uno de los nodos siguientes contiene propiedades que no afectan al comportamiento en tiempo de ejecución.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="170,42"
+          Id="Package\Tarea Ejecutar SQL"
+          TopLeft="390,170" />
+        <NodeLayout
+          Size="179,42"
+          Id="Package\Tarea Ejecutar SQL 1"
+          TopLeft="380,270" />
+        <NodeLayout
+          Size="179,42"
+          Id="Package\Tarea Ejecutar SQL 2"
+          TopLeft="387,82" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción]"
+          TopLeft="472.25,212">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,58"
+              Start="0,0"
+              End="0,50.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,50.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Restricción 1]"
+          TopLeft="475.75,124">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,46"
+              Start="0,0"
+              End="0,38.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,38.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
